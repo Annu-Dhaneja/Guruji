@@ -1,138 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>GuruCraftPro Owner Access</title>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GuruCraftPro Control Center · Owner Access</title>
 <style>
-:root{--bg:#fff;--card:#f8fafa;--text:#102a36;--muted:#52636a;--line:#dce7e7;--teal:#0799a6;--teal-d:#087581;--peach:#f5a39a;--err:#a8434c;--errbg:#fde2de}
-@media (prefers-color-scheme:dark){:root{--bg:#0b1114;--card:#182429;--text:#f4f8f8;--muted:#b7c6c8;--line:#2a3c40;--teal:#25b4bd;--teal-d:#25b4bd;--peach:#f2a39a;--err:#f2a39a;--errbg:#533735}}
-*{box-sizing:border-box}
-body{margin:0;min-height:100dvh;display:grid;place-items:center;padding:16px;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
-main{width:100%;max-width:400px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 24px}
-h1{font-size:20px;margin:0 0 4px}h1 span{color:var(--teal)}
-p.sub{margin:0 0 20px;color:var(--muted);font-size:13px}
-label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px}
-input{width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit}
-input:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
-#otp{font-family:ui-monospace,Menlo,monospace;font-size:19px;letter-spacing:.12em;text-align:center}
-button.primary{width:100%;margin-top:20px;padding:12px;border:0;border-radius:999px;background:var(--peach);color:#102a36;font-weight:800;font:inherit;font-weight:800;cursor:pointer}
-button.primary:disabled{opacity:.6;cursor:not-allowed}
-button.link{background:none;border:0;color:var(--teal-d);font:inherit;font-size:13px;cursor:pointer;margin-top:12px;padding:4px}
-.msg{display:none;margin-top:16px;padding:10px 14px;border-radius:12px;background:var(--errbg);color:var(--err);font-size:13px;font-weight:600}
-.msg.show{display:block}
-.hide{display:none}
-small{display:block;margin-top:18px;color:var(--muted);font-size:11px;text-align:center}
-</style>
-</head>
-<body>
-<main>
-  <h1>Gurucraft<span>Pro</span> Owner Access</h1>
-  <p class="sub" id="sub">Restricted area. Authorized owner only.</p>
+:root{--bg:#070b12;--card:#0e1520;--line:#1d2a3a;--tx:#e8f1f8;--mut:#8aa0b4;--teal:#22d3e6;--red:#ff6b7a;--grn:#19d38a}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(900px 500px at 50% -10%,#0f2a3a,var(--bg));color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom))}
+.card{width:100%;max-width:440px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 24px;box-shadow:0 20px 60px #0008}
+h1{font-size:26px;margin:14px 0 4px;text-align:center}.sub{color:var(--mut);text-align:center;margin:0 0 18px;font-size:14px}
+.badge{display:flex;gap:8px;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:99px;padding:6px 12px;width:max-content;margin:0 auto 18px;font-size:13px;color:var(--mut)}
+.badge i{width:9px;height:9px;border-radius:50%;background:var(--grn)}
+.logo{width:56px;height:56px;margin:0 auto;border-radius:16px;border:1px solid var(--line);display:grid;place-items:center;background:#0a1a24}
+label{display:block;font-size:14px;color:var(--mut);margin:14px 0 6px}
+.f{display:flex;align-items:center;border:1px solid var(--line);border-radius:14px;background:#0a111a}
+.f:focus-within{border-color:var(--teal);box-shadow:0 0 0 3px #22d3e633}
+input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--tx);font:inherit;padding:14px}
+.eye{background:none;border:0;color:var(--mut);padding:0 14px;cursor:pointer;font:inherit}
+button.main{width:100%;margin-top:20px;padding:15px;border:0;border-radius:14px;font:600 15px inherit;font-family:inherit;color:#04141a;background:linear-gradient(90deg,#0aa3b3,#3be0ee);cursor:pointer}
+button.main:disabled{opacity:.55;cursor:wait}button.main:focus-visible,.eye:focus-visible,.link:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.msg{display:none;margin:0 0 6px;padding:12px 14px;border-radius:12px;font-size:14px}
+.msg.err{display:block;background:#2a1118;border:1px solid #7a2a38;color:#ffb3bd}.msg.ok{display:block;background:#0b2a22;border:1px solid #14634a;color:#9af0cf}
+.otp{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.otp input{text-align:center;font:600 20px ui-monospace,Menlo,monospace;letter-spacing:2px;padding:14px 0;border:1px solid var(--line);border-radius:12px;background:#0a111a;width:100%}
+.otp input:focus{border-color:var(--teal);box-shadow:0 0 0 3px #22d3e633}
+.link{background:none;border:0;color:var(--teal);cursor:pointer;font:inherit;padding:6px 0}.row{display:flex;justify-content:space-between;margin-top:12px;font-size:14px;color:var(--mut)}
+.note{margin-top:18px;font-size:12.5px;color:var(--mut);text-align:center}.hide{display:none}
+</style></head><body>
+<main class="card">
+ <div class="logo" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#22d3e6" stroke-width="1.8"><path d="M12 3l8 3v6c0 4.5-3.2 7.8-8 9-4.8-1.2-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
+ <h1>Owner Access</h1><p class="sub">GuruCraftPro Control Center. Only the registered owner can sign in.</p>
+ <div class="badge"><i></i>Password + 16-digit email OTP + server-verified owner</div>
+ <div id="msg" class="msg" role="alert" aria-live="polite"></div>
 
-  <form id="f1" autocomplete="on" novalidate>
-    <label for="email">Owner email</label>
-    <input id="email" type="email" autocomplete="username" required>
-    <label for="pw">Password</label>
-    <input id="pw" type="password" autocomplete="current-password" required>
-    <button class="primary" id="b1" type="submit">Continue</button>
-  </form>
+ <form id="s1" autocomplete="on">
+  <label for="em">Owner email</label>
+  <div class="f"><input id="em" type="email" autocomplete="username" inputmode="email" required></div>
+  <label for="pw">Password</label>
+  <div class="f"><input id="pw" type="password" autocomplete="current-password" required><button type="button" class="eye" id="eye" aria-label="Show password">Show</button></div>
+  <button class="main" id="b1">Send 16-digit OTP</button>
+ </form>
 
-  <form id="f2" class="hide" novalidate>
-    <label for="otp">16-digit code sent to your email</label>
-    <input id="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="19" placeholder="0000 0000 0000 0000" required>
-    <button class="primary" id="b2" type="submit">Verify and enter</button>
-    <button class="link" id="back" type="button">Start over</button>
-  </form>
-
-  <div class="msg" id="msg" role="alert" aria-live="assertive"></div>
-  <small>All checks are enforced on the server. This page holds no secrets.</small>
+ <form id="s2" class="hide" autocomplete="one-time-code">
+  <label>Enter the 16-digit OTP sent to the owner email</label>
+  <div class="otp" id="otp"></div>
+  <button class="main" id="b2">Verify and open Control Center</button>
+  <div class="row"><span id="timer"></span><button type="button" class="link" id="back">Start over</button></div>
+ </form>
+ <p class="note">Other accounts, Google, GitHub and other SSO logins cannot open this panel. Admin rights are checked on the server for every request.</p>
 </main>
-
 <script>
-(() => {
-  'use strict';
-  // Relative API paths; the server sets an httpOnly, Secure, SameSite=Strict session cookie.
-  const API = '/api/admin/auth';
-  const DENIED = 'Access denied. This account is not authorized as the GuruCraftPro Owner.';
-  const $ = (id) => document.getElementById(id);
-  let challengeId = null; // in memory only; never stored in localStorage
-
-  const show = (t) => { const m = $('msg'); m.textContent = t; m.classList.add('show'); };
-  const clear = () => $('msg').classList.remove('show');
-
-  async function call(path, method, body) {
-    const res = await fetch(API + path, {
-      method,
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'gcp-admin' },
-      body: body ? JSON.stringify(body) : undefined,
-    });
-    let data = {};
-    try { data = await res.json(); } catch (e) { /* non-JSON error */ }
-    return { status: res.status, data };
-  }
-
-  function step(n) {
-    $('f1').classList.toggle('hide', n !== 1);
-    $('f2').classList.toggle('hide', n !== 2);
-    $('sub').textContent = n === 1 ? 'Restricted area. Authorized owner only.' : 'Enter the one-time code to finish signing in.';
-    clear();
-    (n === 1 ? $('email') : $('otp')).focus();
-  }
-
-  // Step 1: credentials. The server decides everything; the reply is identical for wrong email or wrong password.
-  $('f1').addEventListener('submit', async (e) => {
-    e.preventDefault(); clear();
-    $('b1').disabled = true;
-    try {
-      const { status, data } = await call('/login', 'POST', { email: $('email').value.trim(), password: $('pw').value });
-      $('pw').value = '';
-      if (status === 200 && data.challengeId) { challengeId = data.challengeId; step(2); }
-      else if (status === 429) show('Too many attempts. Please wait and try again.');
-      else show('Invalid credentials.');
-    } catch (err) { show('Network error. Please try again.'); }
-    $('b1').disabled = false;
-  });
-
-  // Group digits as 4-4-4-4 while typing
-  $('otp').addEventListener('input', (e) => {
-    const d = e.target.value.replace(/\D/g, '').slice(0, 16);
-    e.target.value = d.replace(/(.{4})/g, '$1 ').trim();
-  });
-
-  // Step 2: 16-digit OTP, then confirm owner role from the server session.
-  $('f2').addEventListener('submit', async (e) => {
-    e.preventDefault(); clear();
-    const code = $('otp').value.replace(/\D/g, '');
-    if (code.length !== 16) { show('Enter all 16 digits.'); return; }
-    $('b2').disabled = true;
-    try {
-      const v = await call('/verify-otp', 'POST', { challengeId, code });
-      if (v.status === 200) {
-        const s = await call('/session', 'GET');
-        if (s.status === 200 && s.data.owner === true) { window.location.replace('/admin/dashboard'); return; }
-        show(DENIED);
-      } else if (v.status === 403) { show(DENIED); }
-      else if (v.status === 429) { show('Too many attempts. Please sign in again later.'); step(1); }
-      else { show('Invalid or expired code.'); }
-    } catch (err) { show('Network error. Please try again.'); }
-    $('otp').value = '';
-    $('b2').disabled = false;
-  });
-
-  $('back').addEventListener('click', () => { challengeId = null; $('otp').value = ''; step(1); });
-
-  // Entry guard for any /admin* route: ask the server; never trust client-side flags.
-  (async () => {
-    try {
-      const s = await call('/session', 'GET');
-      if (s.status === 200 && s.data.owner === true) { window.location.replace('/admin/dashboard'); }
-      else if (s.status === 403) { show(DENIED); setTimeout(() => window.location.replace('/'), 2500); }
-    } catch (err) { /* stay on login */ }
-  })();
+(()=>{
+const API=(window.GCP_API_BASE||'')+'/api/admin/auth';   // '' = same origin as your Node server
+const $=id=>document.getElementById(id);let cid=null,tick=null;
+const show=(t,k='err')=>{const m=$('msg');m.textContent=t;m.className='msg '+k};const clr=()=>{$('msg').className='msg'};
+async function call(path,body){
+  let r;try{r=await fetch(API+path,{method:body?'POST':'GET',credentials:'include',headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined})}
+  catch{throw new Error(location.protocol==='file:'?'This page is opened as a local file. Open it from your GuruCraftPro server (https://your-domain/admin-login.html), or set window.GCP_API_BASE to your server URL.':'Cannot reach the authentication server. Check your internet and that the backend is running.')}
+  let d={};try{d=await r.json()}catch{}
+  if(!r.ok)throw new Error(d.error||('Server error ('+r.status+').'));return d}
+// OTP boxes: 4 x 4 digits, paste-friendly
+const box=[...Array(4)].map((_,i)=>{const e=document.createElement('input');e.inputMode='numeric';e.maxLength=4;e.autocomplete=i?'off':'one-time-code';e.setAttribute('aria-label','OTP digits '+(i*4+1)+' to '+(i*4+4));$('otp').appendChild(e);return e});
+box.forEach((e,i)=>{e.oninput=()=>{e.value=e.value.replace(/\D/g,'').slice(0,4);if(e.value.length===4&&box[i+1])box[i+1].focus()};
+ e.onkeydown=k=>{if(k.key==='Backspace'&&!e.value&&box[i-1])box[i-1].focus()};
+ e.onpaste=k=>{const t=(k.clipboardData.getData('text')||'').replace(/\D/g,'').slice(0,16);if(!t)return;k.preventDefault();box.forEach((b,j)=>b.value=t.slice(j*4,j*4+4));box[Math.min(3,Math.floor(t.length/4))].focus()}});
+$('eye').onclick=()=>{const p=$('pw'),s=p.type==='password';p.type=s?'text':'password';$('eye').textContent=s?'Hide':'Show';$('eye').setAttribute('aria-label',s?'Hide password':'Show password')};
+function timer(sec){clearInterval(tick);const t=$('timer');tick=setInterval(()=>{if(sec<=0){clearInterval(tick);t.textContent='OTP expired';return}t.textContent='Expires in '+Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');sec--},1000)}
+function reset(){cid=null;clearInterval(tick);$('s2').classList.add('hide');$('s1').classList.remove('hide');box.forEach(b=>b.value='');$('pw').value=''}
+$('back').onclick=()=>{reset();clr()};
+$('s1').onsubmit=async e=>{e.preventDefault();clr();$('b1').disabled=true;$('b1').textContent='Checking...';
+ try{const d=await call('/login',{email:$('em').value,password:$('pw').value});cid=d.challengeId;$('pw').value='';
+  $('s1').classList.add('hide');$('s2').classList.remove('hide');box[0].focus();timer(d.expiresInSec);show('OTP sent to the owner email.','ok')}
+ catch(x){show(x.message)}finally{$('b1').disabled=false;$('b1').textContent='Send 16-digit OTP'}};
+$('s2').onsubmit=async e=>{e.preventDefault();clr();const otp=box.map(b=>b.value).join('');
+ if(otp.length!==16)return show('Enter all 16 digits of the OTP.');
+ $('b2').disabled=true;$('b2').textContent='Verifying...';
+ try{const d=await call('/verify-otp',{challengeId:cid,otp});location.replace(d.redirect||'/admin/dashboard')}
+ catch(x){show(x.message);if(/expired|Too many|Sign in again/.test(x.message))reset()}finally{$('b2').disabled=false;$('b2').textContent='Verify and open Control Center'}};
+// Already signed in as owner? Skip ahead. Denied redirect? Explain.
+if(new URLSearchParams(location.search).get('denied')==='owner')show('Access denied. This account is not authorized as the GuruCraftPro Owner.');
+call('/me').then(()=>location.replace('/admin/dashboard')).catch(()=>{});
 })();
-</script>
-</body>
-</html>
+</script></body></html>

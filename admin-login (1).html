@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>GuruCraftPro Owner Access</title>
+<style>
+:root{--bg:#fff;--card:#f8fafa;--text:#102a36;--muted:#52636a;--line:#dce7e7;--teal:#0799a6;--teal-d:#087581;--peach:#f5a39a;--err:#a8434c;--errbg:#fde2de}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1114;--card:#182429;--text:#f4f8f8;--muted:#b7c6c8;--line:#2a3c40;--teal:#25b4bd;--teal-d:#25b4bd;--peach:#f2a39a;--err:#f2a39a;--errbg:#533735}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100dvh;display:grid;place-items:center;padding:16px;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{width:100%;max-width:400px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 24px}
+h1{font-size:20px;margin:0 0 4px}h1 span{color:var(--teal)}
+p.sub{margin:0 0 20px;color:var(--muted);font-size:13px}
+label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px}
+input{width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit}
+input:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+#otp{font-family:ui-monospace,Menlo,monospace;font-size:19px;letter-spacing:.12em;text-align:center}
+button.primary{width:100%;margin-top:20px;padding:12px;border:0;border-radius:999px;background:var(--peach);color:#102a36;font-weight:800;font:inherit;font-weight:800;cursor:pointer}
+button.primary:disabled{opacity:.6;cursor:not-allowed}
+button.link{background:none;border:0;color:var(--teal-d);font:inherit;font-size:13px;cursor:pointer;margin-top:12px;padding:4px}
+.msg{display:none;margin-top:16px;padding:10px 14px;border-radius:12px;background:var(--errbg);color:var(--err);font-size:13px;font-weight:600}
+.msg.show{display:block}
+.hide{display:none}
+small{display:block;margin-top:18px;color:var(--muted);font-size:11px;text-align:center}
+</style>
+</head>
+<body>
+<main>
+  <h1>Gurucraft<span>Pro</span> Owner Access</h1>
+  <p class="sub" id="sub">Restricted area. Authorized owner only.</p>
+
+  <form id="f1" autocomplete="on" novalidate>
+    <label for="email">Owner email</label>
+    <input id="email" type="email" autocomplete="username" required>
+    <label for="pw">Password</label>
+    <input id="pw" type="password" autocomplete="current-password" required>
+    <button class="primary" id="b1" type="submit">Continue</button>
+  </form>
+
+  <form id="f2" class="hide" novalidate>
+    <label for="otp">16-digit code sent to your email</label>
+    <input id="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="19" placeholder="0000 0000 0000 0000" required>
+    <button class="primary" id="b2" type="submit">Verify and enter</button>
+    <button class="link" id="back" type="button">Start over</button>
+  </form>
+
+  <div class="msg" id="msg" role="alert" aria-live="assertive"></div>
+  <small>All checks are enforced on the server. This page holds no secrets.</small>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  // Relative API paths; the server sets an httpOnly, Secure, SameSite=Strict session cookie.
+  const API = '/api/admin/auth';
+  const DENIED = 'Access denied. This account is not authorized as the GuruCraftPro Owner.';
+  const $ = (id) => document.getElementById(id);
+  let challengeId = null; // in memory only; never stored in localStorage
+
+  const show = (t) => { const m = $('msg'); m.textContent = t; m.classList.add('show'); };
+  const clear = () => $('msg').classList.remove('show');
+
+  async function call(path, method, body) {
+    const res = await fetch(API + path, {
+      method,
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'gcp-admin' },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    let data = {};
+    try { data = await res.json(); } catch (e) { /* non-JSON error */ }
+    return { status: res.status, data };
+  }
+
+  function step(n) {
+    $('f1').classList.toggle('hide', n !== 1);
+    $('f2').classList.toggle('hide', n !== 2);
+    $('sub').textContent = n === 1 ? 'Restricted area. Authorized owner only.' : 'Enter the one-time code to finish signing in.';
+    clear();
+    (n === 1 ? $('email') : $('otp')).focus();
+  }
+
+  // Step 1: credentials. The server decides everything; the reply is identical for wrong email or wrong password.
+  $('f1').addEventListener('submit', async (e) => {
+    e.preventDefault(); clear();
+    $('b1').disabled = true;
+    try {
+      const { status, data } = await call('/login', 'POST', { email: $('email').value.trim(), password: $('pw').value });
+      $('pw').value = '';
+      if (status === 200 && data.challengeId) { challengeId = data.challengeId; step(2); }
+      else if (status === 429) show('Too many attempts. Please wait and try again.');
+      else show('Invalid credentials.');
+    } catch (err) { show('Network error. Please try again.'); }
+    $('b1').disabled = false;
+  });
+
+  // Group digits as 4-4-4-4 while typing
+  $('otp').addEventListener('input', (e) => {
+    const d = e.target.value.replace(/\D/g, '').slice(0, 16);
+    e.target.value = d.replace(/(.{4})/g, '$1 ').trim();
+  });
+
+  // Step 2: 16-digit OTP, then confirm owner role from the server session.
+  $('f2').addEventListener('submit', async (e) => {
+    e.preventDefault(); clear();
+    const code = $('otp').value.replace(/\D/g, '');
+    if (code.length !== 16) { show('Enter all 16 digits.'); return; }
+    $('b2').disabled = true;
+    try {
+      const v = await call('/verify-otp', 'POST', { challengeId, code });
+      if (v.status === 200) {
+        const s = await call('/session', 'GET');
+        if (s.status === 200 && s.data.owner === true) { window.location.replace('/admin/dashboard'); return; }
+        show(DENIED);
+      } else if (v.status === 403) { show(DENIED); }
+      else if (v.status === 429) { show('Too many attempts. Please sign in again later.'); step(1); }
+      else { show('Invalid or expired code.'); }
+    } catch (err) { show('Network error. Please try again.'); }
+    $('otp').value = '';
+    $('b2').disabled = false;
+  });
+
+  $('back').addEventListener('click', () => { challengeId = null; $('otp').value = ''; step(1); });
+
+  // Entry guard for any /admin* route: ask the server; never trust client-side flags.
+  (async () => {
+    try {
+      const s = await call('/session', 'GET');
+      if (s.status === 200 && s.data.owner === true) { window.location.replace('/admin/dashboard'); }
+      else if (s.status === 403) { show(DENIED); setTimeout(() => window.location.replace('/'), 2500); }
+    } catch (err) { /* stay on login */ }
+  })();
+})();
+</script>
+</body>
+</html>

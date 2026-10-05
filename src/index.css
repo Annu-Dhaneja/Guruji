@@ -1,0 +1,275 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* LIGHT MODE TOKENS */
+  --color-light-bg-primary: #FFFFFF;
+  --color-light-bg-secondary: #F8FAFA;
+  --color-light-surface: #F8FAFA;
+  --color-light-card: #FFFFFF;
+  --color-light-border: #DCE7E7;
+  --color-light-text-primary: #102A36;
+  --color-light-text-secondary: #52636A;
+  --color-light-teal: #0799A6;
+  --color-light-teal-deep: #087581;
+  --color-light-teal-soft: #DDF3F4;
+  --color-light-peach: #F5A39A;
+  --color-light-peach-soft: #FDE2DE;
+  --color-light-pink: #E99191;
+
+  /* DARK MODE TOKENS */
+  --color-dark-bg-primary: #0B1114;
+  --color-dark-bg-secondary: #111A1E;
+  --color-dark-surface: #141F23;
+  --color-dark-card: #182429;
+  --color-dark-card-elevated: #1E2B30;
+  --color-dark-border: #2A3C40;
+  --color-dark-text-primary: #F4F8F8;
+  --color-dark-text-secondary: #B7C6C8;
+  --color-dark-text-muted: #819396;
+  --color-dark-teal: #25B4BD;
+  --color-dark-teal-deep: #087581;
+  --color-dark-teal-soft: #173D40;
+  --color-dark-peach: #F2A39A;
+  --color-dark-peach-soft: #533735;
+  --color-dark-pink: #E98F96;
+}
+
+:root {
+  --bg-primary: #FFFFFF;
+  --bg-soft: #F8FAFA;
+  --bg-secondary: #F8FAFA;
+  --bg-surface: #F8FAFA;
+  --bg-card: #FFFFFF;
+  --border-color: #DCE7E7;
+  --text-primary: #102A36;
+  --text-secondary: #52636A;
+  --text-muted: #819396;
+  --teal-primary: #0799A6;
+  --teal-deep: #087581;
+  --teal-soft: #DDF3F4;
+  --accent-teal: #0799A6;
+  --accent-teal-dark: #087581;
+  --accent-teal-soft: #DDF3F4;
+  --peach-primary: #F5A39A;
+  --peach-soft: #FDE2DE;
+  --accent-peach: #F5A39A;
+  --accent-peach-soft: #FDE2DE;
+  --pink-accent: #E99191;
+  --accent-pink: #E99191;
+}
+
+.dark {
+  --bg-primary: #0B1114;
+  --bg-soft: #111A1E;
+  --bg-secondary: #111A1E;
+  --bg-surface: #141F23;
+  --bg-card: #182429;
+  --border-color: #2A3C40;
+  --text-primary: #F4F8F8;
+  --text-secondary: #B7C6C8;
+  --text-muted: #819396;
+  --teal-primary: #25B4BD;
+  --teal-deep: #087581;
+  --teal-soft: #173D40;
+  --accent-teal: #25B4BD;
+  --accent-teal-dark: #087581;
+  --accent-teal-soft: #173D40;
+  --peach-primary: #F2A39A;
+  --peach-soft: #533735;
+  --accent-peach: #F2A39A;
+  --accent-peach-soft: #533735;
+  --pink-accent: #E98F96;
+  --accent-pink: #E98F96;
+}
+
+html, body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Custom premium subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #DCE7E7;
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #2A3C40;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0799A6;
+}
+
+/* 3D Depth Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Luxury 3D Card Hover */
+.card-hover-3d {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease;
+}
+.card-hover-3d:hover {
+  transform: translateY(-4px) scale(1.01);
+}
+
+/* Primary Teal CTA (As specified: "Primary CTA: teal filled button") */
+.btn-primary-cta {
+  background-color: #0799A6;
+  color: #FFFFFF;
+  font-weight: 700;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .btn-primary-cta {
+  background-color: #25B4BD;
+  color: #0B1114;
+}
+.btn-primary-cta:hover {
+  background-color: #087581;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -6px rgba(7, 153, 166, 0.45);
+}
+.dark .btn-primary-cta:hover {
+  background-color: #31C8D2;
+  color: #0B1114;
+  box-shadow: 0 8px 20px -6px rgba(37, 180, 189, 0.45);
+}
+
+/* Secondary Button CTA (As specified: "Secondary CTA: white background thin teal border") */
+.btn-secondary-cta {
+  background-color: #FFFFFF;
+  border: 1.5px solid #0799A6;
+  color: #0799A6;
+  font-weight: 600;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .btn-secondary-cta {
+  border-color: #25B4BD;
+  color: #25B4BD;
+  background-color: #182429;
+}
+.btn-secondary-cta:hover {
+  transform: translateY(-2px);
+  border-color: #087581;
+  background-color: #DDF3F4;
+  color: #087581;
+  box-shadow: 0 6px 18px -6px rgba(7, 153, 166, 0.25);
+}
+.dark .btn-secondary-cta:hover {
+  border-color: #25B4BD;
+  background-color: #111A1E;
+  color: #F4F8F8;
+  box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.4);
+}
+
+/* Peach CTA (As secondary accent only, e.g. Sign In / accents) */
+.btn-peach-cta {
+  background-color: #F5A39A;
+  color: #102A36;
+  font-weight: 700;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .btn-peach-cta {
+  background-color: #F2A39A;
+  color: #0B1114;
+}
+.btn-peach-cta:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 8px 20px -6px rgba(245, 163, 154, 0.45);
+}
+
+/* Explicit Teal CTA alias */
+.btn-teal-cta {
+  background-color: #0799A6;
+  color: #FFFFFF;
+  font-weight: 700;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .btn-teal-cta {
+  background-color: #25B4BD;
+  color: #0B1114;
+}
+.btn-teal-cta:hover {
+  background-color: #087581;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -6px rgba(7, 153, 166, 0.45);
+}
+
+/* Floating animation */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.8deg);
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-0.5deg);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-float-gentle {
+  animation: floatGentle 5s ease-in-out infinite;
+}
+
+@keyframes floatProductSubtle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float-product-subtle {
+  animation: floatProductSubtle 4s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

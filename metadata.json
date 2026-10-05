@@ -1,0 +1,8 @@
+{
+  "name": "GurucraftPro - Annu Dhaneja Creative Studio & Wardrobe Planner",
+  "description": "Creative design studio, AI Photoshop Workflow Studio (.ATN generator), 7-day capsule wardrobe style consultation, Guruji spiritual artwork, Vantage e-commerce photo editing, book cover design, and AI prompt library.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

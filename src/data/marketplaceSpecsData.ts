@@ -1,0 +1,88 @@
+import { MarketplaceSpec } from '../types';
+
+export type { MarketplaceSpec };
+
+export const MARKETPLACE_SPECS: MarketplaceSpec[] = [
+  {
+    id: 'spec-amazon',
+    platform: 'amazon',
+    name: 'Amazon Seller Central Standards',
+    recommendedDimensions: '2000 x 2000 px (Min 1000px for zoom, Max 10,000px)',
+    aspectRatio: '1:1 (Square)',
+    backgroundColor: 'Pure White (sRGB 255, 255, 255)',
+    maxFileSize: '10 MB',
+    allowedFormats: ['JPEG', 'TIFF', 'PNG'],
+    productFillPercentage: '85% or greater of image frame',
+    rules: [
+      'Main image must feature single product on pure white background (RGB 255, 255, 255).',
+      'No watermarks, promotional text, seller logos, or borders allowed on Main Hero Image.',
+      'Smooth contact shadow or subtle cast reflection recommended for depth.',
+      'High-resolution source must support 1600px+ hover-to-zoom interactive magnifying loupe.',
+      'Product must be shown outside packaging unless packaging is part of item.',
+    ],
+  },
+  {
+    id: 'spec-flipkart',
+    platform: 'flipkart',
+    name: 'Flipkart Marketplace Standards',
+    recommendedDimensions: '1500 x 1500 px (Min 1100 x 1100 px)',
+    aspectRatio: '1:1 (Square) or 4:5 for Fashion',
+    backgroundColor: 'RGB 255, 255, 255 (or light uniform grey for white products)',
+    maxFileSize: '5 MB',
+    allowedFormats: ['JPEG', 'PNG'],
+    productFillPercentage: '80% - 85% frame coverage',
+    rules: [
+      'Crisp edges with no pixelation or compression artifacts.',
+      'Ghost mannequin images must include neck inner seam aligned and shadow interior.',
+      'Lifestyle/Infographic secondary shots can utilize colored background or staging.',
+    ],
+  },
+  {
+    id: 'spec-shopify',
+    platform: 'shopify',
+    name: 'Shopify DTC Brand Guidelines',
+    recommendedDimensions: '2048 x 2048 px',
+    aspectRatio: '1:1 (Square) or 3:4 (Editorial Portrait)',
+    backgroundColor: 'Transparent PNG / Off-White (#F8F9FA) / Custom Brand Color',
+    maxFileSize: '20 MB',
+    allowedFormats: ['WebP', 'PNG', 'JPEG'],
+    productFillPercentage: 'Flexible (75% - 85%)',
+    rules: [
+      'High fidelity WebP format for fast Core Web Vitals mobile loading.',
+      'Editorial lifestyle shots recommended for carousel positions 3 to 6.',
+      'Retain natural ambient contact shadows for tactile, premium DTC look.',
+    ],
+  },
+  {
+    id: 'spec-myntra',
+    platform: 'myntra',
+    name: 'Myntra Fashion Standards',
+    recommendedDimensions: '1080 x 1440 px',
+    aspectRatio: '3:4 (Portrait Format)',
+    backgroundColor: '#F3F4F6 (Soft Studio Grey / White)',
+    maxFileSize: '8 MB',
+    allowedFormats: ['JPEG', 'PNG'],
+    productFillPercentage: '90% vertical frame coverage',
+    rules: [
+      'Mandatory vertical 3:4 orientation for all apparel and footwear.',
+      'Symmetrical shoulder alignment on ghost mannequin apparel.',
+      'Fabric close-up zoom tile required for texture and weave inspection.',
+    ],
+  },
+  {
+    id: 'spec-zepto-blinkit',
+    platform: 'zepto',
+    name: 'Quick Commerce (Zepto / Blinkit / Instamart)',
+    recommendedDimensions: '1000 x 1000 px',
+    aspectRatio: '1:1 (Square)',
+    backgroundColor: 'Transparent PNG or 100% White',
+    maxFileSize: '2 MB',
+    allowedFormats: ['PNG', 'WebP'],
+    productFillPercentage: '90% tight crop for mobile app grid visibility',
+    rules: [
+      'Front-facing packaging label must be razor sharp and legible on 300px phone screens.',
+      'Key weight / count / volume tag must stand out clearly.',
+      'Tight padding ensures immediate visual recognition on fast-scrolling phone grids.',
+    ],
+  },
+];
